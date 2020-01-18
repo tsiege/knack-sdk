@@ -1,8 +1,7 @@
 {
   "defaultSeverity": "error",
   "extends": [
-    "tslint:recommended",
-    "tslint-config-prettier"
+    "tslint:recommended"
   ],
   "linterOptions": {
     "exclude": ["dist", "**/*.js"]
@@ -24,17 +23,15 @@
     "no-return-await": true,
     "no-var-keyword": true,
     "no-shadowed-variable": [true, {"temporalDeadZone": false }],
-    "no-unused-variable": [true, {"ignore-pattern": "^_", "check-parameters": true}],
     "object-literal-sort-keys": false,
     "ordered-imports": false,
     "quotemark": [ true, "single", "avoid-escape" ],
     "radix": true,
-    "space-before-function-paren": false ,
+    "space-before-function-paren": false,
     "trailing-comma": [ true ],
     "prettier": true,
-    "no-bitwise": false
-  },
-  "rulesDirectory": [
-    "tslint-plugin-prettier"
-  ]
+    "no-bitwise": false,
+    "semicolon": false,
+    "object-literal-key-quotes": [true, "as-needed"]
+  }
 }
