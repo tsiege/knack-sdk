@@ -1,0 +1,9 @@
+lib/
+.circlci
+.eslintrc
+.*
+CHANGELOG.md
+mocha.opts
+tsconfig-build.json
+tsconfig.json
+tslint.json

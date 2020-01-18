@@ -1,0 +1,38 @@
+{
+  "name": "knack-sdk",
+  "version": "1.0.0",
+  "description": "Unofficial Knack SDK",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "prepare": "npm run build",
+    "build": "ttsc -b tsconfig-build.json",
+    "test": "TS_NODE_COMPILER=ttypescript mocha --opts mocha.opts",
+    "lint": "tslint src/*.ts",
+    "format": "tslint src/*.ts --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/TSiege/knack-sdk.git"
+  },
+  "keywords": [
+    "knack",
+    "sdk",
+    "client"
+  ],
+  "author": "Tristan Siegel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TSiege/knack-sdk/issues"
+  },
+  "homepage": "https://github.com/TSiege/knack-sdk#readme",
+  "devDependencies": {
+    "tslint": "^5.20.1",
+    "ttypescript": "^1.5.10",
+    "typescript": "^3.7.5",
+    "typescript-is": "^0.13.1"
+  },
+  "dependencies": {
+    "got": "^10.2.2"
+  }
+}

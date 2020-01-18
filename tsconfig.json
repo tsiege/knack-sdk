@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "allowJs": false,
+    "declaration": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "strictNullChecks": true,
+    "target": "es2017",
+    "esModuleInterop": true,
+    "lib": [
+      "es2017",
+      "esnext.asynciterable"
+    ],
+    "plugins": [
+      { "transform": "typescript-is/lib/transform-inline/transformer" }
+    ]
+  },
+  "include": [
+    "src/*.ts"
+  ],
+  "exclude": [
+    "src/*.test.ts"
+  ]
+}
