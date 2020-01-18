@@ -27,6 +27,11 @@ export type KnackSession = {
   }
 }
 
+export type ObjectResponse = {
+  id: string
+  [k: string]: any
+}
+
 export type CreateRecordArgs = {
   objectKey: string
   data: GenericObject
@@ -38,7 +43,7 @@ export type createViewRecordArgs = {
   data: GenericObject
 }
 
-export type ObjectResponse = {
-  id: string
-  [k: string]: any
+export type GetRecordArgs = {
+  objectKey: string
+  recordId: string
 }

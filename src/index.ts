@@ -1,6 +1,6 @@
 import got, { Method } from 'got'
 import { assertType } from 'typescript-is'
-import { KnackConstructorArgs, AuthenticateArgs, KnackSession, ObjectResponse, GenericObject, CreateRecordArgs, createViewRecordArgs } from './types'
+import { KnackConstructorArgs, AuthenticateArgs, KnackSession, ObjectResponse, GenericObject, CreateRecordArgs, createViewRecordArgs, GetRecordArgs } from './types'
 
 const knackUrl = 'https://api.knack.com/v1/'
 
@@ -15,7 +15,7 @@ export default class Knack {
     this.apiKey = apiKey
   }
 
-  private async request<response>(path: string, { method, json }: { method: Method, json: GenericObject }) {
+  private async request<response>(path: string, { method = 'GET', json }: { method: Method, json?: GenericObject } = { method: 'GET' }) {
       const { body } = await got(path, {
         prefixUrl: knackUrl,
         headers: {
@@ -24,7 +24,7 @@ export default class Knack {
           token: this.token
         },
         method,
-        json
+        ...(json && { json })
       })
 
       return JSON.parse(body) as response
@@ -46,6 +46,12 @@ export default class Knack {
     assertType<createViewRecordArgs>(args)
     const { sceneKey, viewKey, data: json } = args
     return this.request<ObjectResponse>(`pages/${sceneKey}/views/${viewKey}/records`, { method: 'POST', json })
+  }
+
+  getRecord(args: GetRecordArgs) {
+    assertType<GetRecordArgs>(args)
+    const { objectKey, recordId } = args
+    return this.request<ObjectResponse>(`objects/${objectKey}/records/${recordId}`)
   }
 
 }
