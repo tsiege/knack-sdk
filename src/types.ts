@@ -32,7 +32,13 @@ export type CreateObjectArgs = {
   data: GenericObject
 }
 
-export type CreateObjectResponse = {
+export type CreateViewObjectArgs = {
+  sceneKey: string
+  viewKey: string
+  data: GenericObject
+}
+
+export type ObjectResponse = {
   id: string
   [k: string]: any
 }
