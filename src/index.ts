@@ -1,6 +1,6 @@
 import got, { Method } from 'got'
 import { assertType } from 'typescript-is'
-import { KnackConstructorArgs, AuthenticateArgs, KnackSession, ObjectResponse, GenericObject, CreateObjectArgs, CreateViewObjectArgs } from './types'
+import { KnackConstructorArgs, AuthenticateArgs, KnackSession, ObjectResponse, GenericObject, CreateRecordArgs, createViewRecordArgs } from './types'
 
 const knackUrl = 'https://api.knack.com/v1/'
 
@@ -36,14 +36,14 @@ export default class Knack {
     this.token = token
   }
 
-  createObject(args: CreateObjectArgs) {
-    assertType<CreateObjectArgs>(args)
+  createRecord(args: CreateRecordArgs) {
+    assertType<CreateRecordArgs>(args)
     const { objectKey, data: json } = args
     return this.request<ObjectResponse>(`objects/${objectKey}/records`, { method: 'POST', json })
   }
 
-  createViewObject(args: CreateViewObjectArgs) {
-    assertType<CreateViewObjectArgs>(args)
+  createViewRecord(args: createViewRecordArgs) {
+    assertType<createViewRecordArgs>(args)
     const { sceneKey, viewKey, data: json } = args
     return this.request<ObjectResponse>(`pages/${sceneKey}/views/${viewKey}/records`, { method: 'POST', json })
   }

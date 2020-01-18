@@ -27,12 +27,12 @@ export type KnackSession = {
   }
 }
 
-export type CreateObjectArgs = {
+export type CreateRecordArgs = {
   objectKey: string
   data: GenericObject
 }
 
-export type CreateViewObjectArgs = {
+export type createViewRecordArgs = {
   sceneKey: string
   viewKey: string
   data: GenericObject
