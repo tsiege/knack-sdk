@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/TSiege/knack-sdk#readme",
   "devDependencies": {
+    "ts-node": "^8.6.2",
     "tslint": "^5.20.1",
     "ttypescript": "^1.5.10",
     "typescript": "^3.7.5",
