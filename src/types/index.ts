@@ -99,3 +99,18 @@ export interface DeleteViewRecordArgs {
 export interface DeletePayload {
   delete: boolean
 }
+
+export interface UploadFileArgs {
+  fieldKey: string
+  file: any
+  objectKey: string
+}
+
+export interface UploadPayload {
+  filename: string,
+  id: string,
+  public_url: string,
+  size: number
+  thumb_url: string,
+  type: string,
+}

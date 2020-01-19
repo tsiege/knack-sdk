@@ -1,3 +1,4 @@
+import FormData from 'form-data'
 import got, { Method } from 'got'
 import { assertType } from 'typescript-is'
 import {
@@ -16,7 +17,9 @@ import {
   ViewRecordPayload,
   DeleteRecordArgs,
   DeletePayload,
-  DeleteViewRecordArgs
+  DeleteViewRecordArgs,
+  UploadFileArgs,
+  UploadPayload
 } from './types'
 
 const knackUrl = 'https://api.knack.com/v1/'
@@ -123,20 +126,40 @@ export default class Knack {
     )
   }
 
+  async uploadFile(args: UploadFileArgs) {
+    assertType<UploadFileArgs>(args)
+    const { fieldKey, objectKey, file } = args
+    const form = new FormData()
+    form.append('files', file)
+    const { id } = await this.request<UploadPayload>(`applications/${this.appId}/assets/file/upload`, {
+      body: form,
+      method: 'POST'
+    })
+    return this.createRecord({ objectKey, data: { [fieldKey]: id } })
+  }
+
   private async request<response>(
     path: string,
-    { method = 'GET', json, searchParams }: { json?: GenericObject; method: Method; searchParams?: GenericObject } = {
+    { method = 'GET', json, searchParams, body: submittedBody, contentType }: {
+      body?: FormData
+      contentType?: string
+      json?: GenericObject
+      method: Method
+      searchParams?: GenericObject
+    } = {
       method: 'GET'
     }
   ) {
     const { body } = await got(path, {
       prefixUrl: knackUrl,
       headers: {
+        ...(contentType && { 'Content-Type': contentType }),
         'X-Knack-Application-Id': this.appId,
         'X-Knack-REST-API-Key': this.apiKey,
-        token: this.token
+        token: this.token,
       },
       method,
+      ...(submittedBody && { body: submittedBody }),
       ...(json && { json }),
       ...(searchParams && { searchParams })
     })
