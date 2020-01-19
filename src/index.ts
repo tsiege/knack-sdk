@@ -127,7 +127,8 @@ export default class Knack {
   }
 
   async uploadFile(args: UploadFileArgs) {
-    assertType<UploadFileArgs>(args)
+    assertType<string>(args.fieldKey)
+    assertType<string>(args.objectKey)
     const { fieldKey, objectKey, file } = args
     const form = new FormData()
     form.append('files', file)
@@ -140,9 +141,8 @@ export default class Knack {
 
   private async request<response>(
     path: string,
-    { method = 'GET', json, searchParams, body: submittedBody, contentType }: {
+    { method = 'GET', json, searchParams, body: submittedBody }: {
       body?: FormData
-      contentType?: string
       json?: GenericObject
       method: Method
       searchParams?: GenericObject
@@ -153,7 +153,6 @@ export default class Knack {
     const { body } = await got(path, {
       prefixUrl: knackUrl,
       headers: {
-        ...(contentType && { 'Content-Type': contentType }),
         'X-Knack-Application-Id': this.appId,
         'X-Knack-REST-API-Key': this.apiKey,
         token: this.token,

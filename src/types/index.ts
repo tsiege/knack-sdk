@@ -1,4 +1,5 @@
 import { FilterStatement } from './filters'
+import { Readable } from 'stream'
 export { FilterStatement } from './filters'
 
 export interface GenericObject {
@@ -102,7 +103,7 @@ export interface DeletePayload {
 
 export interface UploadFileArgs {
   fieldKey: string
-  file: any
+  file: Readable
   objectKey: string
 }
 
