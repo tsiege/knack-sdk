@@ -1,4 +1,5 @@
-export { FilterStatements } from './filters'
+import { FilterStatement } from './filters'
+export { FilterStatement } from './filters'
 
 export interface GenericObject {
   [k: string]: any
@@ -50,6 +51,6 @@ export interface GetRecordArgs {
 }
 
 export interface GetRecordsArgs {
+  filters?: FilterStatement
   objectKey: string
-  recordId: string
 }

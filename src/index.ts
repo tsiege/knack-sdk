@@ -8,7 +8,8 @@ import {
   GenericObject,
   CreateRecordArgs,
   CreateViewRecordArgs,
-  GetRecordArgs
+  GetRecordArgs,
+  GetRecordsArgs
 } from './types'
 
 const knackUrl = 'https://api.knack.com/v1/'
@@ -63,9 +64,18 @@ export default class Knack {
     )
   }
 
+  getRecords(args: GetRecordsArgs) {
+    assertType<GetRecordsArgs>(args)
+    const { objectKey, filters } = args
+    return this.request<ObjectResponse>(
+      `objects/${objectKey}/records`,
+      { method: 'GET', searchParams: { filters: JSON.stringify(filters) } }
+    )
+  }
+
   private async request<response>(
     path: string,
-    { method = 'GET', json }: { json?: GenericObject; method: Method } = {
+    { method = 'GET', json, searchParams }: { json?: GenericObject; method: Method; searchParams?: GenericObject } = {
       method: 'GET'
     }
   ) {
@@ -77,7 +87,8 @@ export default class Knack {
         token: this.token
       },
       method,
-      ...(json && { json })
+      ...(json && { json }),
+      ...(searchParams && { searchParams })
     })
 
     return JSON.parse(body) as response
