@@ -29,7 +29,6 @@
     "radix": true,
     "space-before-function-paren": false,
     "trailing-comma": [ true ],
-    "prettier": true,
     "no-bitwise": false,
     "semicolon": false,
     "object-literal-key-quotes": [true, "as-needed"]
