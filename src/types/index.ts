@@ -72,3 +72,10 @@ export interface UpdateRecordArgs {
   objectKey: string
   recordId: string
 }
+
+export interface UpdateViewRecordArgs {
+  data: GenericObject
+  recordId: string
+  sceneKey: string
+  viewKey: string
+}

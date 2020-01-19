@@ -11,7 +11,9 @@ import {
   GetRecordArgs,
   GetRecordsArgs,
   GetRecordsPayload,
-  UpdateRecordArgs
+  UpdateRecordArgs,
+  UpdateViewRecordArgs,
+  ViewRecordPayload
 } from './types'
 
 const knackUrl = 'https://api.knack.com/v1/'
@@ -52,7 +54,7 @@ export default class Knack {
   createViewRecord(args: CreateViewRecordArgs) {
     assertType<CreateViewRecordArgs>(args)
     const { sceneKey, viewKey, data: json } = args
-    return this.request<ObjectPayload>(
+    return this.request<ViewRecordPayload>(
       `pages/${sceneKey}/views/${viewKey}/records`,
       { method: 'POST', json }
     )
@@ -90,6 +92,15 @@ export default class Knack {
       method: 'PUT',
       json
     })
+  }
+
+  updateViewRecord(args: UpdateViewRecordArgs) {
+    assertType<UpdateViewRecordArgs>(args)
+    const { sceneKey, viewKey, data: json, recordId } = args
+    return this.request<ViewRecordPayload>(
+      `pages/${sceneKey}/views/${viewKey}/records/${recordId}`,
+      { method: 'POST', json }
+    )
   }
 
   private async request<response>(
