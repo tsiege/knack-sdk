@@ -61,9 +61,9 @@ export interface GetRecordsArgs {
   format?: 'raw' | 'html' | 'both'
   objectKey: string
   page?: number
-  rows_per_page?: number
-  sort_field?: string
-  sort_order?: 'asc' | 'desc'
+  rowsPerPage?: number
+  sortField?: string
+  sortOrder?: 'asc' | 'desc'
 }
 
 export interface GetRecordsPayload {
