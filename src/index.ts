@@ -106,7 +106,7 @@ export default class Knack {
     })
   }
   /**
-   * Deletes a record based on a users actions
+   * Deletes a record based on a users' allowed actions
    * @param args - DeleteViewRecordArgs
    * @param args.sceneKey - The scene key
    * @param args.viewKey - The view key
