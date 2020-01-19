@@ -1,3 +1,5 @@
+export { FilterStatements } from './filters'
+
 export interface GenericObject {
   [k: string]: any
 }
@@ -27,9 +29,8 @@ export interface KnackSession {
   }
 }
 
-export interface ObjectResponse {
+export interface ObjectResponse extends GenericObject {
   id: string
-  [k: string]: any
 }
 
 export interface CreateRecordArgs {
@@ -44,6 +45,11 @@ export interface CreateViewRecordArgs {
 }
 
 export interface GetRecordArgs {
+  objectKey: string
+  recordId: string
+}
+
+export interface GetRecordsArgs {
   objectKey: string
   recordId: string
 }
