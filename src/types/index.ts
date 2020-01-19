@@ -66,3 +66,9 @@ export interface GetRecordsPayload {
   total_pages: number
   total_records: number
 }
+
+export interface UpdateRecordArgs {
+  data: GenericObject
+  objectKey: string
+  recordId: string
+}
