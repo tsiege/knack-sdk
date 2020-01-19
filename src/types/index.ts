@@ -34,6 +34,11 @@ export interface ObjectPayload extends GenericObject {
   id: string
 }
 
+export interface ViewRecordPayload {
+  record: ObjectPayload
+  submit_key: string
+}
+
 export interface CreateRecordArgs {
   data: GenericObject
   objectKey: string
@@ -78,4 +83,19 @@ export interface UpdateViewRecordArgs {
   recordId: string
   sceneKey: string
   viewKey: string
+}
+
+export interface DeleteRecordArgs {
+  objectKey: string
+  recordId: string
+}
+
+export interface DeleteViewRecordArgs {
+  recordId: string
+  sceneKey: string
+  viewKey: string
+}
+
+export interface DeletePayload {
+  delete: boolean
 }

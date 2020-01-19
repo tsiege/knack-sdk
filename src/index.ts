@@ -13,7 +13,10 @@ import {
   GetRecordsPayload,
   UpdateRecordArgs,
   UpdateViewRecordArgs,
-  ViewRecordPayload
+  ViewRecordPayload,
+  DeleteRecordArgs,
+  DeletePayload,
+  DeleteViewRecordArgs
 } from './types'
 
 const knackUrl = 'https://api.knack.com/v1/'
@@ -60,6 +63,23 @@ export default class Knack {
     )
   }
 
+  deleteRecord(args: DeleteRecordArgs) {
+    assertType<DeleteRecordArgs>(args)
+    const { objectKey, recordId } = args
+    return this.request<DeletePayload>(`objects/${objectKey}/records/${recordId}`, {
+      method: 'DELETE'
+    })
+  }
+
+  deleteViewRecord(args: DeleteViewRecordArgs) {
+    assertType<DeleteViewRecordArgs>(args)
+    const { sceneKey, viewKey, recordId } = args
+    return this.request<DeletePayload>(
+      `pages/${sceneKey}/views/${viewKey}/records/${recordId}`,
+      { method: 'DELETE' }
+    )
+  }
+
   getRecord(args: GetRecordArgs) {
     assertType<GetRecordArgs>(args)
     const { objectKey, recordId } = args
@@ -99,7 +119,7 @@ export default class Knack {
     const { sceneKey, viewKey, data: json, recordId } = args
     return this.request<ViewRecordPayload>(
       `pages/${sceneKey}/views/${viewKey}/records/${recordId}`,
-      { method: 'POST', json }
+      { method: 'PUT', json }
     )
   }
 
