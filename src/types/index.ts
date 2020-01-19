@@ -30,7 +30,7 @@ export interface KnackSession {
   }
 }
 
-export interface ObjectResponse extends GenericObject {
+export interface ObjectPayload extends GenericObject {
   id: string
 }
 
@@ -52,5 +52,17 @@ export interface GetRecordArgs {
 
 export interface GetRecordsArgs {
   filters?: FilterStatement
+  format?: 'raw' | 'html' | 'both'
   objectKey: string
+  page?: number
+  rows_per_page?: number
+  sort_field?: string
+  sort_order?: 'asc' | 'desc'
+}
+
+export interface GetRecordsPayload {
+  current_page: number
+  records: ObjectPayload[]
+  total_pages: number
+  total_records: number
 }

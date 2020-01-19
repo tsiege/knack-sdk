@@ -4,12 +4,13 @@ import {
   KnackConstructorArgs,
   AuthenticateArgs,
   KnackSession,
-  ObjectResponse,
+  ObjectPayload,
   GenericObject,
   CreateRecordArgs,
   CreateViewRecordArgs,
   GetRecordArgs,
-  GetRecordsArgs
+  GetRecordsArgs,
+  GetRecordsPayload
 } from './types'
 
 const knackUrl = 'https://api.knack.com/v1/'
@@ -41,7 +42,7 @@ export default class Knack {
   createRecord(args: CreateRecordArgs) {
     assertType<CreateRecordArgs>(args)
     const { objectKey, data: json } = args
-    return this.request<ObjectResponse>(`objects/${objectKey}/records`, {
+    return this.request<ObjectPayload>(`objects/${objectKey}/records`, {
       method: 'POST',
       json
     })
@@ -50,7 +51,7 @@ export default class Knack {
   createViewRecord(args: CreateViewRecordArgs) {
     assertType<CreateViewRecordArgs>(args)
     const { sceneKey, viewKey, data: json } = args
-    return this.request<ObjectResponse>(
+    return this.request<ObjectPayload>(
       `pages/${sceneKey}/views/${viewKey}/records`,
       { method: 'POST', json }
     )
@@ -59,17 +60,25 @@ export default class Knack {
   getRecord(args: GetRecordArgs) {
     assertType<GetRecordArgs>(args)
     const { objectKey, recordId } = args
-    return this.request<ObjectResponse>(
+    return this.request<ObjectPayload>(
       `objects/${objectKey}/records/${recordId}`
     )
   }
 
   getRecords(args: GetRecordsArgs) {
     assertType<GetRecordsArgs>(args)
-    const { objectKey, filters } = args
-    return this.request<ObjectResponse>(
+    const { filters, format, objectKey, page, rows_per_page, sort_field, sort_order } = args
+    const searchParams = {
+      ...(filters && { filters: JSON.stringify(filters) }),
+      ...(format && { format }),
+      ...(page && { page }),
+      ...(rows_per_page && { rows_per_page }),
+      ...(sort_field && { sort_field }),
+      ...(sort_order && { sort_order })
+    }
+    return this.request<GetRecordsPayload>(
       `objects/${objectKey}/records`,
-      { method: 'GET', searchParams: { filters: JSON.stringify(filters) } }
+      { method: 'GET', searchParams }
     )
   }
 
