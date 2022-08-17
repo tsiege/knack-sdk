@@ -1,6 +1,5 @@
 import FormData from 'form-data'
 import got, { Method } from 'got'
-import { assertType } from 'typescript-is'
 import {
   KnackConstructorArgs,
   AuthenticateArgs,
@@ -36,7 +35,6 @@ export default class Knack {
    * @returns Promise<Knack Instance>
    */
   constructor(args: KnackConstructorArgs) {
-    assertType<KnackConstructorArgs>(args)
     const { appId, apiKey } = args
     this.appId = appId
     this.apiKey = apiKey
@@ -49,7 +47,6 @@ export default class Knack {
    * @returns Promise<void>
    */
   async authenticate(args: AuthenticateArgs) {
-    assertType<AuthenticateArgs>(args)
     const {
       session: {
         user: { token }
@@ -68,7 +65,6 @@ export default class Knack {
    * @returns Promise<ObjectPayload>
    */
   createRecord(args: CreateRecordArgs) {
-    assertType<CreateRecordArgs>(args)
     const { objectKey, data: json } = args
     return this.request<ObjectPayload>(`objects/${objectKey}/records`, {
       method: 'POST',
@@ -84,7 +80,6 @@ export default class Knack {
    * @returns Promise<ViewRecordPayload>
    */
   createViewRecord(args: CreateViewRecordArgs) {
-    assertType<CreateViewRecordArgs>(args)
     const { sceneKey, viewKey, data: json } = args
     return this.request<ViewRecordPayload>(
       `pages/${sceneKey}/views/${viewKey}/records`,
@@ -99,7 +94,6 @@ export default class Knack {
    * @returns Promise<DeletePayload>
    */
   deleteRecord(args: DeleteRecordArgs) {
-    assertType<DeleteRecordArgs>(args)
     const { objectKey, recordId } = args
     return this.request<DeletePayload>(`objects/${objectKey}/records/${recordId}`, {
       method: 'DELETE'
@@ -114,7 +108,6 @@ export default class Knack {
    * @returns Promise<DeletePayload>
    */
   deleteViewRecord(args: DeleteViewRecordArgs) {
-    assertType<DeleteViewRecordArgs>(args)
     const { sceneKey, viewKey, recordId } = args
     return this.request<DeletePayload>(
       `pages/${sceneKey}/views/${viewKey}/records/${recordId}`,
@@ -129,7 +122,6 @@ export default class Knack {
    * @returns Promise<ObjectPayload>
    */
   getRecord(args: GetRecordArgs) {
-    assertType<GetRecordArgs>(args)
     const { objectKey, recordId } = args
     return this.request<ObjectPayload>(
       `objects/${objectKey}/records/${recordId}`
@@ -148,7 +140,6 @@ export default class Knack {
    * @returns Promise<GetRecordsPayload>
    */
   getRecords(args: GetRecordsArgs) {
-    assertType<GetRecordsArgs>(args)
     const { filters, format, objectKey, page, rowsPerPage, sortField, sortOrder } = args
     const searchParams = {
       ...(filters && { filters: JSON.stringify(filters) }),
@@ -172,7 +163,6 @@ export default class Knack {
    * @returns Promise<ObjectPayload>
    */
   updateRecord(args: UpdateRecordArgs) {
-    assertType<UpdateRecordArgs>(args)
     const { objectKey, data: json, recordId } = args
     return this.request<ObjectPayload>(`objects/${objectKey}/records/${recordId}`, {
       method: 'PUT',
@@ -188,7 +178,6 @@ export default class Knack {
    * @returns Promise<ViewRecordPayload>
    */
   updateViewRecord(args: UpdateViewRecordArgs) {
-    assertType<UpdateViewRecordArgs>(args)
     const { sceneKey, viewKey, data: json, recordId } = args
     return this.request<ViewRecordPayload>(
       `pages/${sceneKey}/views/${viewKey}/records/${recordId}`,
@@ -204,8 +193,6 @@ export default class Knack {
    * @returns Promise<ObjectPayload>
    */
   async uploadFile(args: UploadFileArgs) {
-    assertType<string>(args.fieldKey)
-    assertType<string>(args.objectKey)
     const { fieldKey, objectKey, file } = args
     const form = new FormData()
     form.append('files', file)

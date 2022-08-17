@@ -20,7 +20,10 @@
     "sdk",
     "client"
   ],
-  "authors": ["Neisser Villa","Tristan Siegel"],
+  "authors": [
+    "Neisser Villa",
+    "Tristan Siegel"
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/TSiege/knack-sdk/issues"
@@ -32,8 +35,7 @@
     "ts-node": "^8.6.2",
     "tslint": "^5.20.1",
     "ttypescript": "^1.5.10",
-    "typescript": "^3.7.5",
-    "typescript-is": "^0.13.1"
+    "typescript": "^3.7.5"
   },
   "dependencies": {
     "form-data": "^3.0.0",
