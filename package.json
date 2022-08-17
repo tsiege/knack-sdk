@@ -20,7 +20,7 @@
     "sdk",
     "client"
   ],
-  "author": "Tristan Siegel",
+  "authors": ["Neisser Villa","Tristan Siegel"],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/TSiege/knack-sdk/issues"
