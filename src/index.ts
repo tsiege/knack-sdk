@@ -18,7 +18,8 @@ import {
   DeletePayload,
   DeleteViewRecordArgs,
   UploadFileArgs,
-  UploadPayload
+  UploadPayload,
+  AuthenticateTokenArgs
 } from './types'
 
 const knackUrl = 'https://api.knack.com/v1/'
@@ -56,6 +57,22 @@ export default class Knack {
       json: args
     })
     this.token = token
+  }
+  /**
+   * Authenticate tokens by getting a clean view
+   * @param args - AuthenticateTokenArgs
+   * @param args.sceneKey - The scene key
+   * @param args.viewKey - The view key
+   * @param args.token - The token to be validated
+   * @returns Promise<ViewRecordPayload>
+   */
+  async authenticateToken(args: AuthenticateTokenArgs) {
+    const { sceneKey, viewKey, token } = args
+    this.token = token;
+    return this.request<ViewRecordPayload>(
+      `pages/${sceneKey}/views/${viewKey}/records`,
+      { method: 'GET' }
+    )
   }
   /**
    * Creates a record in the Object of your choice

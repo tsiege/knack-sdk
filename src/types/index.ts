@@ -16,6 +16,12 @@ export interface AuthenticateArgs {
   password: string
 }
 
+export interface AuthenticateTokenArgs {
+  token: string
+  sceneKey: string
+  viewKey: string
+}
+
 export interface KnackSession {
   session: {
     user: {
