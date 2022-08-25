@@ -239,6 +239,11 @@ export default class Knack {
         token: this.token,
       },
       method,
+      retry: {
+        limit: 5,
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+        statusCodes: [429, 503]
+      },
       ...(submittedBody && { body: submittedBody }),
       ...(json && { json }),
       ...(searchParams && { searchParams })
