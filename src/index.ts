@@ -202,14 +202,12 @@ export default class Knack {
     )
   }
   /**
-   * Uploads a file or image to a record in a designated field
+   * Uploads a file or image to knack and return the public url.
    * @param args - UploadFileArgs
-   * @param args.objectKey - The desired Object where this record will live
-   * @param args.fieldKey - The desired Field where this file will be added
    * @param args.file - Readable Stream of the file you wish to upload
    * @returns Promise<ObjectPayload>
    */
-  async uploadFile(args: UploadFileArgs) {
+  async uploadFileToRecord(args: UploadFileArgs) {
     const { fieldKey, objectKey, file } = args
     const form = new FormData()
     form.append('files', file)
@@ -218,6 +216,23 @@ export default class Knack {
       method: 'POST'
     })
     return this.createRecord({ objectKey, data: { [fieldKey]: id } })
+  }
+  /**
+   * Uploads a file or image to a record in a designated field
+   * @param args - UploadFileArgs
+   * @param args.objectKey - The desired Object where this record will live
+   * @param args.fieldKey - The desired Field where this file will be added
+   * @param args.file - Readable Stream of the file you wish to upload
+   * @returns Promise<ObjectPayload>
+   */
+  async uploadFile(args: UploadFileArgs) {
+    const { file } = args
+    const form = new FormData()
+    form.append('files', file)
+    return this.request<UploadPayload>(`applications/${this.appId}/assets/file/upload`, {
+      body: form,
+      method: 'POST'
+    })
   }
 
   private async request<response>(
