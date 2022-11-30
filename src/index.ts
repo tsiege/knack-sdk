@@ -223,6 +223,7 @@ export default class Knack {
    * @param args.objectKey - The desired Object where this record will live
    * @param args.fieldKey - The desired Field where this file will be added
    * @param args.file - Readable Stream of the file you wish to upload
+   * @param args.timeout - timeout to prevent hanging requests
    * @returns Promise<ObjectPayload>
    */
   async uploadFile(args: UploadFileArgs) {
@@ -231,17 +232,19 @@ export default class Knack {
     form.append('files', file)
     return this.request<UploadPayload>(`applications/${this.appId}/assets/file/upload`, {
       body: form,
-      method: 'POST'
+      method: 'POST',
+      timeoutSeconds: args.timeout,
     })
   }
 
   private async request<response>(
     path: string,
-    { method = 'GET', json, searchParams, body: submittedBody }: {
+    { method = 'GET', json, searchParams, body: submittedBody, timeoutSeconds = 1000 }: {
       body?: FormData
       json?: GenericObject
       method: Method
       searchParams?: GenericObject
+      timeoutSeconds?: number
     } = {
       method: 'GET'
     }
@@ -254,6 +257,9 @@ export default class Knack {
         token: this.token,
       },
       method,
+      timeout: {
+        request: (1000 * timeoutSeconds)
+      },
       retry: {
         limit: 5,
         methods: ['GET', 'POST', 'PUT', 'DELETE'],

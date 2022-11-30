@@ -111,6 +111,7 @@ export interface UploadFileArgs {
   fieldKey: string
   file: Readable
   objectKey: string
+  timeout?: number
 }
 
 export interface UploadPayload {
