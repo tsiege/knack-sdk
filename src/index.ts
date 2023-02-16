@@ -22,23 +22,26 @@ import {
   AuthenticateTokenArgs
 } from './types'
 
-const knackUrl = 'https://api.knack.com/v1/'
+const knackUrl = 'https://api.knack.com'
 
 export default class Knack {
   private apiKey: string
   private appId: string
   private token: string
+  private host: string
   /**
    * Constructor for the Knack class
    * @param args - KnackConstructorArgs
    * @param args.appId - The id of your Knack Application
    * @param args.apiKey - The API key of your Knack Application
+   * @param args.host - The knack host when its different from https://api.knack.com
    * @returns Promise<Knack Instance>
    */
   constructor(args: KnackConstructorArgs) {
-    const { appId, apiKey } = args
+    const { appId, apiKey, host } = args
     this.appId = appId
     this.apiKey = apiKey
+    this.host = (host || knackUrl) + '/v1/'
   }
   /**
    * Authenticate a user via their email and password
@@ -250,7 +253,7 @@ export default class Knack {
     }
   ) {
     const { body } = await got(path, {
-      prefixUrl: knackUrl,
+      prefixUrl: this.host,
       headers: {
         'X-Knack-Application-Id': this.appId,
         'X-Knack-REST-API-Key': this.apiKey,

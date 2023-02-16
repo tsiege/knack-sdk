@@ -9,6 +9,7 @@ export interface GenericObject {
 export interface KnackConstructorArgs {
   apiKey: string
   appId: string
+  host: string
 }
 
 export interface AuthenticateArgs {
